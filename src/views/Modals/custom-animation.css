@@ -1,0 +1,13 @@
+.css-3pxmmn > div  {
+  width: 100% !important;
+  height: 100% !important;
+  background: cornsilk !important;
+  opacity: 0.9 !important;
+  margin-top: 100px;
+  padding-top: 50px;
+  min-height: 800px;
+}
+
+.messages {
+  text-align: center;
+}
