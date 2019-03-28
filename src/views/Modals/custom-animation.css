@@ -1,13 +1,19 @@
 .css-3pxmmn > div  {
   width: 100% !important;
   height: 100% !important;
-  background: cornsilk !important;
-  opacity: 0.9 !important;
+  background: white !important;
   margin-top: 100px;
   padding-top: 50px;
   min-height: 800px;
-}
 
+}
+.css-3pxmmn {
+  background: white;
+  border: 1px solid;
+  padding: 10px;
+  box-shadow: 5px 10px 18px red;
+
+}
 .messages {
   text-align: center;
 }

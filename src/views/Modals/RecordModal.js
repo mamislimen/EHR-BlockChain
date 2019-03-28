@@ -83,7 +83,7 @@ class RecordModal extends Component{
             <label className="sc-bwzfXH dybocD">Do you have any previous relevant diseases ?</label>
               <textarea cols="35" rows="4" name="prevDiseases"/>
               <br />
-            <Button primary>Register</Button>
+            <button className="btn btn-primary" style={{width: "150px"}}>Save Record</button>
           </Form>
         </Drawer>
       </div>
