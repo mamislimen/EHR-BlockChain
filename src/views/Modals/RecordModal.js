@@ -50,11 +50,10 @@ class RecordModal extends Component{
 
     const { open } = this.state;
     return (
-      <div className="modal">
+      <div className="modal container">
         <Drawer
           open={open}
           onRequestClose={this.onCloseModal}
-
         >
           <div className={"messages"}>
             <h3>Woops! Looks Like This the first time you are using our service?</h3>
@@ -63,8 +62,10 @@ class RecordModal extends Component{
             <pre>Please Fill In Your Details Below</pre>
           </div>
             <img src={logo} alt="medical record logo" height="200px" width="200px" style={{display: "block", margin: "auto"}}/>
-          <Form action={this.registerUser} style={{textAlign: "center", margin: "auto", width: "800px"}}>
-            <Input className="inputs"
+          <div className="col-md-12">
+            <Form action={this.registerUser} style={{textAlign: "center", margin: "auto", width: "800px"}} className="row">
+            <div className="col-md-12 form-border">
+              <Input className="inputs"
               name="firstName"
               type="text"
               label="First Name"
@@ -83,8 +84,10 @@ class RecordModal extends Component{
             <label className="sc-bwzfXH dybocD">Do you have any previous relevant diseases ?</label>
               <textarea cols="35" rows="4" name="prevDiseases"/>
               <br />
-            <button className="btn btn-primary" style={{width: "150px"}}>Save Record</button>
-          </Form>
+            </div>
+              <button className="btn btn-primary" style={{width: "150px"}}>Save Record</button>
+            </Form>
+          </div>
         </Drawer>
       </div>
     );
