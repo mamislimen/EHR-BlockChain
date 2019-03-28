@@ -85,7 +85,7 @@ class RecordModal extends Component{
               <textarea cols="35" rows="4" name="prevDiseases"/>
               <br />
             </div>
-              <button className="btn btn-primary" style={{width: "150px"}}>Save Record</button>
+              <button className="btn btn-primary save-btn" style={{width: "150px"}}>Save Record</button>
             </Form>
           </div>
         </Drawer>
