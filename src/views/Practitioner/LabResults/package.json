@@ -1,0 +1,6 @@
+{
+  "name": "LabResults",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./LabResults.js"
+}

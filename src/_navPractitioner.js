@@ -11,31 +11,31 @@ export default {
     },
     {
          name: 'Consultation',
-         url: '/theme/colors',
+         url: '/practitioner/consultation',
          icon: 'fa fa-stethoscope',
        
     },
     {
          name: 'Prescription',
-         url: '/theme/colors',
+         url: '/practitioner/prescription',
          icon: 'fa fa-file-text-o',
        
     },
     {
           name: 'Allergies',
-          url: '/theme/colors',
+          url: '/practitioner/allergies',
           icon: 'fa fa-exclamation-triangle',
         
     },
     {
           name: 'MRI results',
-          url: '/theme/colors',
+          url: '/practitioner/mri',
           icon: 'fa fa-search',
         
     },
     {
           name: 'Lab Test Results',
-          url: '/theme/colors',
+          url: '/practitioner/labresults',
           icon: 'fa fa-flask',
 
     },

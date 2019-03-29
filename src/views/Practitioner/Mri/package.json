@@ -1,0 +1,6 @@
+{
+  "name": "Mri",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Mri.js"
+}

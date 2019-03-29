@@ -1,0 +1,6 @@
+{
+  "name": "Prescription",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Prescription.js"
+}
