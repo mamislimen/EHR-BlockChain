@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
-
+import Record from '../../views/Record/Record';
 import {
   AppAside,
   AppBreadcrumb,
@@ -35,6 +35,7 @@ class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
+        <Record />
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
             <DefaultHeader onLogout={e=>this.signOut(e)}/>
