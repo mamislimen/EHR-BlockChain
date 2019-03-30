@@ -1,9 +1,9 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
+      name: 'Profile',
+      url: '/Profile',
+      icon: 'icon-user',
       // badge: {
       //   variant: 'info',
       //   text: 'NEW',
@@ -11,13 +11,13 @@ export default {
     },
     {
          name: 'Phiscal Activity',
-         url: '/theme/colors',
+         url: '/user/physicalactivity',
          icon: 'fa fa-heartbeat',
        
     },
     {
          name: 'Nutrition',
-         url: '/theme/colors',
+         url: '/user/nutrition',
          icon: 'fa fa-cutlery',
        
     },

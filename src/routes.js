@@ -35,6 +35,9 @@ const Typography = React.lazy(() => import('./views/Theme/Typography'));
 const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
+const Profile = React.lazy(() => import('./views/Profile/profile'));
+const PhysicalActivity = React.lazy(() => import('./views/PhysicalActivity/physicalactivity'));
+const Nutrition = React.lazy(() => import('./views/Nutrition/nutrition'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -79,6 +82,9 @@ const routes = [
   { path: '/charts', name: 'Charts', component: Charts },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/profile', exact: true,  name: 'Profile', component: Profile },
+  { path: '/user/physicalactivity', exact: true,  name: 'PhysicalActivity', component: PhysicalActivity },
+  { path: '/user/nutrition', exact: true,  name: 'Nutrition', component: Nutrition },
 ];
 
 export default routes;
