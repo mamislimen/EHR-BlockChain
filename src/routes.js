@@ -35,6 +35,11 @@ const Typography = React.lazy(() => import('./views/Theme/Typography'));
 const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
+const Consulatation = React.lazy(() => import('./views/Practitioner/Consultation'));
+const Prescription = React.lazy(() => import('./views/Practitioner/Prescription'));
+const Allergies = React.lazy(() => import('./views/Practitioner/Allergies'));
+const Mri = React.lazy(() => import('./views/Practitioner/Mri'));
+const LabResults = React.lazy(() => import('./views/Practitioner/LabResults'));
 const Profile = React.lazy(() => import('./views/Profile/profile'));
 const PhysicalActivity = React.lazy(() => import('./views/PhysicalActivity/physicalactivity'));
 const Nutrition = React.lazy(() => import('./views/Nutrition/nutrition'));
@@ -85,6 +90,11 @@ const routes = [
   { path: '/profile', exact: true,  name: 'Profile', component: Profile },
   { path: '/user/physicalactivity', exact: true,  name: 'PhysicalActivity', component: PhysicalActivity },
   { path: '/user/nutrition', exact: true,  name: 'Nutrition', component: Nutrition },
+  { path: '/practitioner/consultation', exact: true, name: 'Consulatation', component: Consulatation },
+  { path: '/practitioner/prescription', exact: true, name: 'Prescription', component: Prescription },
+  { path: '/practitioner/allergies', exact: true, name: 'Allergies', component: Allergies },
+  { path: '/practitioner/mri', exact: true, name: 'MRI', component: Mri },
+  { path: '/practitioner/labresults', exact: true, name: 'Lab Results', component: LabResults },
 ];
 
 export default routes;
