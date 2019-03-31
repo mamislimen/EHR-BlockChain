@@ -5,7 +5,7 @@ import { Input, Button, Textarea } from 'react-advanced-form-addons'
 import logo from '../../assets/img/logos/f1d0807f8ffad0197757d840bdc97d0b-medical-record-icon-by-vexels.png';
 import './custom-animation.css';
 import Drawer from 'react-drag-drawer'
-
+import style from './custom-animation.css';
 const blacklistedEmails = ['john@doe.com'];
 
 class RecordModal extends Component{
@@ -57,17 +57,16 @@ class RecordModal extends Component{
         >
           <div className={"messages"}>
             <h3>Woops! Looks Like This the first time you are using our service?</h3>
-          <strong>In Order To Resume Using Our Service, We Need To Ensure First stat You Created Your Medical Record.</strong>
-           <br />
-            <pre>Please Fill In Your Details Below</pre>
+          <strong>In Order To Continue Using Our Service, We Need To Ensure First that You Created Your Medical Record.</strong>
           </div>
-            <img src={logo} alt="medical record logo" height="200px" width="200px" style={{display: "block", margin: "auto"}}/>
+            <img src={logo} alt="medical record logo" height="180px" width="180px" style={{display: "block", margin: "auto"}} className="logo-record"/>
           <div className="col-md-12">
-            <Form action={this.registerUser} style={{textAlign: "center", margin: "auto", width: "800px"}} className="row">
+            <Form action={this.registerUser} style={{textAlign: "center", margin: "auto", width: "800px"}} className="row medical-record">
             <div className="col-md-12 form-border">
-              <Input className="inputs"
+              <Input
               name="firstName"
               type="text"
+              cssModule={style.inputForm}
               label="First Name"
               required />
             <Input className="inputs"
@@ -81,8 +80,8 @@ class RecordModal extends Component{
               label="E-mail"
               asyncRule={ this.validateEmail }
               required />
-            <label className="sc-bwzfXH dybocD">Do you have any previous relevant diseases ?</label>
-              <textarea cols="35" rows="4" name="prevDiseases"/>
+            <label className="sc-bwzfXH dybocD">Do you have any chronic condition ?</label>
+              <textarea cols="10" rows="3" name="prevDiseases" className="diseases" placeholder="Example: Stroke, diabetes..."/>
               <br />
             </div>
               <button className="btn btn-primary save-btn" style={{width: "150px"}}>Save Record</button>
