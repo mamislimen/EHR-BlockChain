@@ -16,10 +16,16 @@ export default {
        
     },
     {
-         name: 'Nutrition',
-         url: '/user/nutrition',
-         icon: 'fa fa-cutlery',
-       
+      name: 'Nutrition',
+      url: '/user/nutrition',
+      icon: 'fa fa-cutlery',
+
+    },
+    {
+      name: 'Pharmacy',
+      url: '/pharmacy/addDrugs',
+      icon: 'fa fa-medkit',
+
     },
     // {
     //   title: true,

@@ -43,6 +43,7 @@ const LabResults = React.lazy(() => import('./views/Practitioner/LabResults'));
 const Profile = React.lazy(() => import('./views/Profile/profile'));
 const PhysicalActivity = React.lazy(() => import('./views/PhysicalActivity/physicalactivity'));
 const Nutrition = React.lazy(() => import('./views/Nutrition/nutrition'));
+const Pharmacy = React.lazy(() => import('./views/Pharmacy/Drugs'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -95,6 +96,7 @@ const routes = [
   { path: '/practitioner/allergies', exact: true, name: 'Allergies', component: Allergies },
   { path: '/practitioner/mri', exact: true, name: 'MRI', component: Mri },
   { path: '/practitioner/labresults', exact: true, name: 'Lab Results', component: LabResults },
+  { path: '/pharmacy/addDrugs', exact: true, name: 'Pharmacy add Drug', component: Pharmacy },
 ];
 
 export default routes;
