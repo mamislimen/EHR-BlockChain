@@ -7,6 +7,10 @@
   src: url("../../assets/fonts/Duepuntozero-Regular-Trial.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: 'medical-light';
+  src: url("../../assets/fonts/Duepuntozero-ExtraLight-Trial.ttf") format('opentype');
+}
 .css-3pxmmn {
   left: 150px !important;
   padding-bottom: 70px !important;
@@ -17,13 +21,13 @@
   height: 100% !important;
   background: white !important;
   margin-top: 100px;
-  padding-top: 50px;
   min-height: 850px;
   font-family: medical-bold, sans-serif;
   font-size: 18px
 }
 .messages > h3 {
   background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+  box-shadow: aqua 1px 1px 1px 1px;
   min-height: 50px;
   color: white;
   text-align: center;
@@ -39,12 +43,13 @@
 }
 .messages {
   text-align: center;
-  margin-top: 50px;
+
 }
 .form-border {
   background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
   border-radius: 5px 80px 5px;
   padding-bottom: 20px;
+  box-shadow: aqua 1px 1px 1px 1px;
 
 }
 .save-btn {
@@ -52,5 +57,43 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  font-size: 20px !important;
+}
+.diseases {
+  border-radius: 5px;
+}
+.dybocD{
+  font-family: medical-regular, sans-serif !important;
+  font-size: 25px !important;
+  color:white !important;
+}
+.myh {
+  font-family: medical-bold, sans-serif !important;
+  color:#009efb !important;
+  text-align: center !important;
 
+}
+textarea {
+  font-family: medical-light, sans-serif !important;
+  text-align: center;
+}
+.drug-btn.add {
+  text-align: center;
+  margin-left: 10px;
+  color: green;
+  width: 30px;
+  height: 30px;
+}
+.drug-btn.remove {
+  text-align: center;
+  margin-left: 10px;
+  color: red;
+  width: 30px;
+  height: 30px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 }

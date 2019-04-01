@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'Dashboard',
-      url: '/dashboard',
+      url: '/dashboards',
       icon: 'icon-speedometer',
       // badge: {
       //   variant: 'info',
@@ -11,31 +11,31 @@ export default {
     },
     {
          name: 'Consultation',
-         url: '/practitioner/consultation',
+         url: '/dashboards/practitioner/consultation',
          icon: 'fa fa-stethoscope',
        
     },
     {
          name: 'Prescription',
-         url: '/practitioner/prescription',
+         url: '/dashboards/practitioner/prescription',
          icon: 'fa fa-file-text-o',
        
     },
     {
           name: 'Allergies',
-          url: '/practitioner/allergies',
+          url: '/dashboards/practitioner/allergies',
           icon: 'fa fa-exclamation-triangle',
         
     },
     {
           name: 'MRI results',
-          url: '/practitioner/mri',
+          url: '/dashboards/practitioner/mri',
           icon: 'fa fa-search',
         
     },
     {
           name: 'Lab Test Results',
-          url: '/practitioner/labresults',
+          url: '/dashboards/practitioner/labresults',
           icon: 'fa fa-flask',
 
     },
