@@ -56,7 +56,7 @@ class LabResults extends Component {
           <Col xs="12" md="12">
             <Card>
               <CardHeader>
-                <strong>Mri Results </strong>
+                <strong>Lab test Results </strong>
               </CardHeader>
               <CardBody>
                 <Form action="" method="post" encType="multipart/form-data" className="form-horizontal">

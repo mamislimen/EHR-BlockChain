@@ -56,7 +56,7 @@ class Allergies extends Component {
           <Col xs="12" md="12">
             <Card>
               <CardHeader>
-                <strong>Consultation Form </strong>
+                <strong>Allergies Form </strong>
               </CardHeader>
               <CardBody>
                 <Form action="" method="post" encType="multipart/form-data" className="form-horizontal">
