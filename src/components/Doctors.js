@@ -24,8 +24,10 @@ class Doctors extends Component {
       backgroundImage: `url(${index_hero})`
     }
     return (
-      <div><Menu></Menu>
+      
+    <div  >
     <div className="doctors">
+				    <Menu></Menu>
 		<div className="doctors_image"><img src={require("../images/doctors.jpg")} alt=""/></div>
 		<div className="container">
 			<div className="row">
@@ -139,10 +141,13 @@ class Doctors extends Component {
 				</div>
 			</div>
 		</div>
+
+	</div>
+	<Footer></Footer>
 	</div>
 
-<Footer></Footer>
-	</div>	
+
+	
     );
   }
 }

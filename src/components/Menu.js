@@ -9,8 +9,8 @@ import '../plugins/OwlCarousel2-2.2.1/owl.carousel.css';
 import '../plugins/OwlCarousel2-2.2.1/animate.css';
 import'../css/responsive.css';
 import '../plugins/OwlCarousel2-2.2.1/owl.theme.default.css';
-import {NavLink} from "react-router-dom";
-
+import {NavLink,Link } from "react-router-dom";
+import logo from '../../src/assets/img/brand/myehr2.svg'
 class Menu extends Component {
   render() {
 	 
@@ -26,13 +26,13 @@ class Menu extends Component {
 							<div className="col">
 								<div className="header_top_content d-flex flex-row align-items-center justify-content-start">
 									<div className="logo">
-										<a href="#">health<span>+</span></a>	
+										<img src={logo} width="120px"/>
 									</div>
 									<div className="header_top_extra d-flex flex-row align-items-center justify-content-start ml-auto">
 										
 										<div className="header_top_phone">
 											
-											<span><NavLink to="/login" style={{ color:'#32C69A', fontWeight: 'bold'}}>Login</NavLink></span>
+											<span><Link to="/login"  style={{ color:'#32C69A', fontWeight: 'bold'}}>Login</Link></span>
 										</div>
 									</div>
 									<div className="hamburger ml-auto"><i className="fa fa-bars" aria-hidden="true"></i></div>

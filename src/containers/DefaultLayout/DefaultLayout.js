@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch,BrowserRouter as Router } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import Record from '../../views/Record/Record';
 import {
@@ -15,7 +15,7 @@ import {
   AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../_nav';
+import navigation from '../../_navPractitioner';
 // routes config
 import routes from '../../routes';
 
@@ -23,8 +23,10 @@ const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
-class DefaultLayout extends Component {
 
+
+class DefaultLayout extends Component {
+  
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   signOut(e) {
@@ -65,10 +67,10 @@ class DefaultLayout extends Component {
                         name={route.name}
                         render={props => (
                           <route.component {...props} />
-                        )} />
+                        )}/>
                     ) : (null);
                   })}
-                  <Redirect from="/" to="/dashboard" />
+                  <Redirect from="/" to="/dashboards"/>
                 </Switch>
               </Suspense>
             </Container>

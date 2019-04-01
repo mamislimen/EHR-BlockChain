@@ -27,7 +27,7 @@ export default class profile extends Component {
                 <div className="profile-info-left">
                   <h3 className="user-name m-t-0 mb-0">Cristina Groves</h3>
                   {/* <small className="text-muted">Gynecologist</small> */}
-                  <div className="staff-id"><span className="titleInfo">CIN :</span > <span className="titleInfoText">00000000</span></div>
+                  <div className="staff-id"><span className="titleInfo">CIN :</span> <span className="titleInfoText">00000000</span></div>
                   <div className="staff-id"><span className="titleInfo">CNSS/CNAM : </span><span className="titleInfoText">00000000</span></div>
                   <div className="staff-id"><span className="titleInfo">Blood Type:</span> <span className="titleInfoText">O+</span></div>
                   <div className="staff-id"><span className="titleInfo">Height: </span><span className="titleInfoText">1.8M</span></div>
@@ -39,11 +39,11 @@ export default class profile extends Component {
                 <ul className="personal-info">
                   <li>
                     <span className="title">Phone:</span>
-                    <span className="text"><a href>770-889-6484</a></span>
+                    <span className="text"><a >770-889-6484</a></span>
                   </li>
                   <li>
                     <span className="title">Email:</span>
-                    <span className="text"><a href>cristinagroves@example.com</a></span>
+                    <span className="text"><a >cristinagroves@example.com</a></span>
                   </li>
                   <li>
                     <span className="title">Birthday:</span>

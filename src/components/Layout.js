@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import '../css/main.css';
 import index_hero from '../images/index_hero.jpg';
 
-import Footer from './Footer';
+
 import Menu from './Menu';
+import Footer from './Footer';
+import Content from './content';
 import '../plugins/OwlCarousel2-2.2.1/owl.carousel.css';
 import '../plugins/OwlCarousel2-2.2.1/animate.css';
 import'../css/responsive.css';
@@ -18,11 +20,12 @@ class Layout extends Component {
    
     return (
 					<div className="super_container">	
-          <Menu></Menu>
+					    <Menu></Menu>
 						
 						<div>{this.props.children}</div>
 							
-          <Footer></Footer>
+         					 <Footer></Footer>
+			
 					</div>
 
 

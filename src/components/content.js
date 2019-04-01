@@ -30,8 +30,8 @@ class Content extends Component {
 	}
     return (
 <div >
-	<Menu/>
-		
+<Menu/>
+	
     <div className="banniere" style={index_hero}>
 	<div className="home_container">
 			<div className="container">

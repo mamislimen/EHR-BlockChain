@@ -16,7 +16,6 @@ import '../plugins/OwlCarousel2-2.2.1/owl.carousel.css';
 import '../plugins/OwlCarousel2-2.2.1/animate.css';
 import'../css/responsive.css';
 import '../plugins/OwlCarousel2-2.2.1/owl.theme.default.css';
-
 import Menu from './Menu';
 import Footer from './Footer';
 class AboutUs extends Component {
@@ -25,10 +24,10 @@ class AboutUs extends Component {
       backgroundImage: `url(${index_hero})`
     }
     return (
-      <div>
-      <Menu></Menu>
       
+      <div >
       <div className="about">
+      					    <Menu></Menu>
       <div className="container">
         <div className="row">
           <div className="col text-center">
@@ -57,9 +56,12 @@ class AboutUs extends Component {
         </div>
         
       </div>
+      
     </div>
-  <Footer></Footer>
-</div>
+    <Footer></Footer>
+    </div>
+  
+
 	
     );
   }

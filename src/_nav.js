@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'Profile',
-      url: '/Profile',
+      url: '/dashboards/Profile',
       icon: 'icon-user',
       // badge: {
       //   variant: 'info',
@@ -11,21 +11,15 @@ export default {
     },
     {
          name: 'Phiscal Activity',
-         url: '/user/physicalactivity',
+         url: '/dashboards/user/physicalactivity',
          icon: 'fa fa-heartbeat',
        
     },
     {
-      name: 'Nutrition',
-      url: '/user/nutrition',
-      icon: 'fa fa-cutlery',
-
-    },
-    {
-      name: 'Pharmacy',
-      url: '/pharmacy/addDrugs',
-      icon: 'fa fa-medkit',
-
+         name: 'Nutrition',
+         url: '/dashboards/user/nutrition',
+         icon: 'fa fa-cutlery',
+       
     },
     // {
     //   title: true,

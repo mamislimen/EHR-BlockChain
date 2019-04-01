@@ -3,22 +3,27 @@ import React, { Component } from 'react';
 import '../css/services.css';
 import '../css/main.css';
 import '../css/services_responsive.css';
+import index_hero from '../images/index_hero.jpg';
+
 
 import '../plugins/OwlCarousel2-2.2.1/owl.carousel.css';
 import '../plugins/OwlCarousel2-2.2.1/animate.css';
 import'../css/responsive.css';
 import '../plugins/OwlCarousel2-2.2.1/owl.theme.default.css';
-
 import Menu from './Menu';
 import Footer from './Footer';
 
 
+
 class Services extends Component {
   render() {
+    const index_heroBG=  {
+      backgroundImage: `url(${index_hero})`
+    }
     return (
     <div>
-        <Menu></Menu>
         <div className="services">
+        <Menu></Menu>
 		    <div className="container">
                 <div className="row">
                     <div className="col text-center">
@@ -103,8 +108,10 @@ class Services extends Component {
 		    </div>
 	    </div>
         
-<Footer></Footer>
-    </div>    
+        <Footer></Footer>  
+        
+    </div>  
+
 	
 
 

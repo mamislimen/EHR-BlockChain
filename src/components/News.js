@@ -24,8 +24,10 @@ class News extends Component {
       backgroundImage: `url(${index_hero})`
     }
     return (
-      <div><Menu></Menu>
+      
+        <div >
         <div className="news">
+						    <Menu></Menu>
 		<div className="container">
 			<div className="row">
 				
@@ -217,11 +219,11 @@ class News extends Component {
 				</div>
 			</div>
 		</div>
+	
 	</div>
-	<Footer>
-
-	</Footer>
+	<Footer></Footer>
 	</div>
+	
     );
   }
 }
