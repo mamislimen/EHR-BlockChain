@@ -39,6 +39,12 @@ export default {
           icon: 'fa fa-flask',
 
     },
+    {
+      name: 'Chronic Disease',
+      url: '/dashboards/practitioner/chronicdisease',
+      icon: 'fa fa-wheelchair',
+
+    },
     // {
     //   title: true,
     //   name: 'Theme',

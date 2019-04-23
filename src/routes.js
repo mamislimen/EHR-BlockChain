@@ -1,12 +1,14 @@
 import React from 'react';
 
 
+
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const Consulatation = React.lazy(() => import('./views/Practitioner/Consultation'));
 const Prescription = React.lazy(() => import('./views/Practitioner/Prescription'));
 const Allergies = React.lazy(() => import('./views/Practitioner/Allergies'));
 const Mri = React.lazy(() => import('./views/Practitioner/Mri'));
 const LabResults = React.lazy(() => import('./views/Practitioner/LabResults'));
+const ChronicDisease = React.lazy(() => import('./views/Practitioner/ChronicDisease'));
 const Profile = React.lazy(() => import('./views/Profile/profile'));
 const PhysicalActivity = React.lazy(() => import('./views/PhysicalActivity/physicalactivity'));
 const Nutrition = React.lazy(() => import('./views/Nutrition/nutrition'));
@@ -25,6 +27,7 @@ const routes = [
   { path: '/dashboards/practitioner/allergies', exact: true, name: 'Allergies', component: Allergies },
   { path: '/dashboards/practitioner/mri', exact: true, name: 'MRI', component: Mri },
   { path: '/dashboards/practitioner/labresults', exact: true, name: 'Lab Results', component: LabResults },
+  { path: '/dashboards/practitioner/chronicdisease', exact: true, name: 'chronic disease', component: ChronicDisease },
   { path: '/dashboards/pharmacy/addDrugs', exact: true, name: 'Pharmacy add Drug', component: Pharmacy },
  
 ];
