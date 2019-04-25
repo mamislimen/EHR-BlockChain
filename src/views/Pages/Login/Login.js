@@ -1,18 +1,79 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import { loginUser } from '../../../actions/authentication';
+
+const pStyle = {
+  margin: '135px',
+  
+};
 
 class Login extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+        login: '',
+        password: '',
+        errors: {}
+    }
+    this.handleInputChange = this.handleInputChange.bind(this);
+  
+    this.handleSubmit = this.handleSubmit.bind(this);
+}
+
+handleInputChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+}
+ 
+handleSubmit(e) {
+    e.preventDefault();
+    const user = {
+        login: this.state.login,
+        password: this.state.password,
+    }
+    console.log(user);
+    this.props.loginUser(user);
+}
+
+componentDidMount() {
+  if(this.props.auth.isAuthenticated) {
+      this.props.history.push('/');
+  }
+}
+componentWillReceiveProps(nextProps) {
+
+  if(nextProps.auth.isAuthenticated) {
+    this.props.history.push('/dashboards')
+}
+if(nextProps.errors) {
+    this.setState({
+        errors: nextProps.errors
+    });
+}
+
+}
+
   render() {
+    const {errors} = this.state;
     return (
       <div className="app flex-row align-items-center">
         <Container>
+          
           <Row className="justify-content-center">
             <Col md="8">
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form>
+                  <span style={pStyle}>
+            <Link to="/"> <i className="icon-home"> Home</i></Link>
+          </span>
+                    <Form onSubmit={ this.handleSubmit }>
                       <h1>Login</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">
@@ -21,7 +82,10 @@ class Login extends Component {
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" autoComplete="username" />
+                        <Input type="text" placeholder="Username" name="login" autoComplete="username"   onChange={ this.handleInputChange } value={ this.state.login }
+                        className={classnames('form-control form-control-lg', {
+                        'is-invalid': errors.login})}
+                        />
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -29,7 +93,12 @@ class Login extends Component {
                             <i className="icon-lock"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password" />
+                        <Input type="password" placeholder="Password" name="password" autoComplete="current-password" onChange={ this.handleInputChange }  value={ this.state.password } 
+                        className={classnames('form-control form-control-lg', {
+                        'is-invalid': errors.password})} 
+                        />
+                        {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
+
                       </InputGroup>
                       <Row>
                         <Col xs="6">
@@ -62,5 +131,14 @@ class Login extends Component {
     );
   }
 }
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+}
 
-export default Login;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors
+})
+export default connect(mapStateToProps, { loginUser })(Login)
