@@ -124,15 +124,16 @@ class ChronicDisease extends Component {
         background: 'rgba(255, 255, 255, 0.9)',
         padding: '2px 0',
         fontSize: '90%',
-        position: 'inherit',
-        width: '100%',
+        width: 'inherit',
+        position : 'fixed',
+        zIndex:999,
         overflow: 'auto',}}children={items}>
       </div>
     );
   }
   renderItem(item, isHighlighted){
     return (
-      <div style={{background: isHighlighted ? '#20a8d8' : 'white' }}>
+      <div style={{color:'black',background: isHighlighted ? '#20a8d8' : 'white' }}>
         {item}
       </div>
     );
