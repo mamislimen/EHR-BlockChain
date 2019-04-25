@@ -165,13 +165,14 @@ cancel(){
     else{
     return (
       <div style={styles}>
+   
        <LoadingScreen
       
     loading={this.state.waiting}
     bgColor='#f1f1f1'
     spinnerColor='#9ee5f8'
     textColor='#676767'
-    logoSrc='/logo.png'
+    logoSrc={require("../../assets/img/brand//myehr2.svg")}
     text='Waiting for you result'
   > 
   </LoadingScreen>
