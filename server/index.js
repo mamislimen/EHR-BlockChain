@@ -8,6 +8,7 @@ const pino = require('express-pino-logger')();
 const bodyParser = require('body-parser'); 
 var db = require('./Models/db');
 var AuthController = require('./api/AuthController');
+var patientRouter= require('./api/PatientService');
 
 //twilio requirements -- Texting API 
 const accountSid = 'ACc37183f289c7ca9f2b2a6362f70c180e';
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/api/auth', AuthController);
+app.use('/Patient',patientRouter);
 //Welcome Page for the Server 
 app.get('/', (req, res) => {
     res.send('Welcome to the Express Server')
