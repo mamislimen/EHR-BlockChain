@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import store from './store';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
- 
+import 'react-notifications/lib/notifications.css';
+
 import { setCurrentUser, logoutUser } from './actions/authentication';
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
