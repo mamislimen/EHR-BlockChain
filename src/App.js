@@ -33,6 +33,7 @@ const Services = React.lazy(() => import('./components/Services'));
 const News = React.lazy(() => import('./components/News'));
 const Doctors = React.lazy(() => import('./components/Doctors'));
 const Login = React.lazy(() => import('./views/Pages/Login'));
+const LoginCard = React.lazy(() => import('./views/Pages/LoginCard/logincard'));
 const VerifLogin = React.lazy(() => import('./views/Pages/Login/Verify'));
 const Register = React.lazy(() => import('./views/Pages/Register'));
 const Page404 = React.lazy(() => import('./views/Pages/Page404'));
@@ -56,7 +57,7 @@ class App extends Component {
               <Route  path="/doctors" name="doctors" render={props => <Doctors {...props}/>} />
               <Route  exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
               <Route  path="/login/verify" name="verify Page" render={props => <VerifLogin {...props}/>} />
-              <Route  path="/register" name="Register Page" render={props => <Register {...props}/>} />
+              <Route  path="/logincard" name="Login Card Page" render={props => <LoginCard {...props}/>} />
               <Route  path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
               <Route  path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
               {/* <Route  path="/dashboards" name="Dashboard" render={props => <DefaultLayout {...props}/>} /> */}
