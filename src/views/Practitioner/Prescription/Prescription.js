@@ -25,27 +25,31 @@ import {
   Row,
 } from 'reactstrap';
 import Autocomplete from 'react-autocomplete';
+import './autocomplete.css';
+import swal from 'sweetalert';
 
 
 class Prescription extends Component {
   constructor(props) {
     super(props);
+    this.curr = new Date();
+    this.date = this.curr.toISOString().substr(0,10);
     this.state={
       drugs: [{name:""}],
-      values: [],
-      autocompleteData: []
+      values: [{name:"",timing:[],meal:""}],
+      autocompleteData: [],
+      date:this.date
     }
-    this.curr = new Date();
-    //this.curr.setDate(this.curr.getDate() + 3);
-    this.date = this.curr.toISOString().substr(0,10);
     this.onChange = this.onChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.getItemValue = this.getItemValue.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.renderMenu = this.renderMenu.bind(this);
     this.retrieveDataAsynchronously = this.retrieveDataAsynchronously.bind(this);
+    this.checkboxChange=this.checkboxChange.bind(this);
+    this.handleChange=this.handleChange.bind(this);
   }
-  handleChange = (e) => {
+  /*handleChange = (e) => {
     if (["name"].includes(e.target.className) ) {
       let drugs = [...this.state.drugs]
       drugs[e.target.dataset.id][e.target.className] = e.target.value.toUpperCase()
@@ -53,19 +57,30 @@ class Prescription extends Component {
     } else {
       this.setState({ [e.target.name]: e.target.value.toUpperCase() })
     }
+  }*/
+  handleChange(e){
+    this.setState({
+      [e.target.name]:e.target.value
+    })
   }
   addDrug = (e) => {
+    let values=[...this.state.values];
+    values.push({name:"",timing:[],meal:""})
+    this.setState({ values });
     this.setState((prevState) => ({
       drugs: [...prevState.drugs, {name:""}],
       autocompleteData: []
     }));
   }
   removeDrug = (e) => {
+    let values=[...this.state.values];
+    values.pop()
+    this.setState({ values });
     let {drugs} = this.state;
     drugs.splice(-1, 1);
     this.setState({drugs});
   };
-  handleSubmit = (e) => { e.preventDefault() }
+  /*handleSubmit = (e) => { e.preventDefault() }*/
   retrieveDataAsynchronously(searchText){
     let _this = this;
 
@@ -101,7 +116,7 @@ class Prescription extends Component {
   }
   onChange(i,e){
     let values = [...this.state.values];
-    values[i] = e.target.value;
+    values[i].name = e.target.value;
     this.setState({ values });
 
     /**
@@ -121,7 +136,7 @@ class Prescription extends Component {
    */
   onSelect(i,val){
     let values = [...this.state.values];
-    values[i] = val;
+    values[i].name = val;
     this.setState({ values });
 
     console.log("Option from 'database' selected : ", val);
@@ -168,6 +183,101 @@ class Prescription extends Component {
     // something like "1 - Microsoft"
     return `${item}`;
   }
+  checkboxChange(i,e){
+    let values = [...this.state.values];
+    console.log(e.target.checked);
+    if(e.target.checked){
+      values[i].timing.push(e.target.value);
+      this.setState({ values });
+      console.log(this.state.values)
+    }
+    else{
+      let index = values[i].timing.indexOf(e.target.value);
+      values[i].timing.splice(index, 1);
+      this.setState({ values });
+      console.log(this.state.values)
+    }
+  }
+  radioChange(i,e){
+    let values = [...this.state.values];
+    values[i].meal=e.target.value;
+    this.setState({ values });
+    console.log(this.state.values)
+  }
+  submit = (e) => {
+    let drugsPushed=[];
+    let datepres=this.state.date;
+    swal({
+      title: "Are you sure you want to add this condition ?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+
+    }).then(willAdd => {
+      if (willAdd) {
+        let values=[...this.state.values];
+        values.forEach(function (v, i) {
+          let id = Math.floor(1000 + Math.random() * 9000);
+          drugsPushed.push("resource:model.Drug#"+id);
+          let transactions = async () => {
+            await fetch('http://localhost:3000/api/model.Drug', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              "$class": "model.Drug",
+              "drugId": id + "",
+              "name": values[i].name,
+              "manufacturer": "manu",
+              "price": 9999,
+              "lotNumber": "lot num",
+              "consumption": {
+                "$class": "model.DrugConsumption",
+                "mealTiming": values[i].meal,
+                "consumptionTiming": values[i].timing
+              }
+            })
+          }).then(function(response) {
+            console.log (response.text())
+          }, function(error) {
+            console.log (error.message) //=> String
+          })
+        }
+        transactions();
+});
+console.log(drugsPushed);
+setTimeout(function(){
+  let idpres = Math.floor(1000 + Math.random() * 9000);
+fetch('http://localhost:3000/api/model.PractitionerAddPrescription', {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    "$class": "model.PractitionerAddPrescription",
+    "prescription": {
+      "$class": "model.Prescription",
+      "prescriptionId": idpres+"",
+      "prescriptionDate": datepres+"",
+      "drugs": drugsPushed
+    },
+    "patient": "resource:model.Patient#1111",
+    "practitioner": "resource:model.Practitioner#2222"
+  })
+}).then(function(response) {
+  swal("Added!", "Prescription added succefully to record", "success");
+  console.log (response.text())
+}, function(error) {
+  console.log (error.message) //=> String
+})
+ }, 3000);
+
+}
+});
+  }
   render() {
     let {drugs} = this.state
     return (
@@ -198,10 +308,10 @@ class Prescription extends Component {
         </FormGroup>
         <FormGroup row>
           <Col md="3">
-            <Label htmlFor="date-input">Date of Prescription</Label>
+            <Label htmlFor="date">Date of Prescription</Label>
           </Col>
           <Col xs="12" md="9">
-            <Input type="date" id="date-input" name="date-input" placeholder="date" defaultValue={this.date} />
+            <Input type="date" id="date" name="date" placeholder="date" onChange={this.handleChange} defaultValue={this.date} />
           </Col>
         </FormGroup>
         <FormGroup row>
@@ -210,7 +320,13 @@ class Prescription extends Component {
         </FormGroup>
         {
           drugs.map((val, idx)=> {
-            let drugId = `drug-${idx}`
+            let drugId = `drug-${idx}`;
+            let morninId=`morning-${idx}`;
+            let noonId=`noon-${idx}`;
+            let nightId=`night-${idx}`;
+            let beforeId=`before-${idx}`;
+            let afterId=`after-${idx}`;
+            let indifferentId=`indifferent-${idx}`;
             return (
               <FormGroup row key={idx}>
                 <Col md="3">
@@ -222,7 +338,7 @@ class Prescription extends Component {
                           getItemValue={this.getItemValue}
                           items={this.state.autocompleteData}
                           renderItem={this.renderItem}
-                          value={this.state.values[idx]}
+                          value={this.state.values[idx].name}
                           onChange={this.onChange.bind(this, idx)}
                           onSelect={this.onSelect.bind(this, idx)}
                           renderMenu={this.renderMenu}
@@ -230,30 +346,30 @@ class Prescription extends Component {
                 </Col>
                 <Col md="3">
                   <FormGroup check inline>
-                    <Input className="form-check-input" type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1" />
-                    <Label className="form-check-label" check htmlFor="inline-checkbox1">Morning</Label>
+                    <Input className="form-check-input" type="checkbox" id={morninId} name="Morning" value="Morning" onChange={this.checkboxChange.bind(this, idx)} />
+                    <Label className="form-check-label" check htmlFor={morninId}>Morning</Label>
                   </FormGroup>
                   <FormGroup check inline>
-                    <Input className="form-check-input" type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="option2" />
-                    <Label className="form-check-label" check htmlFor="inline-checkbox2">Noon</Label>
+                    <Input className="form-check-input" type="checkbox" id={noonId} name="Noon" value="Noon" onChange={this.checkboxChange.bind(this, idx)} />
+                    <Label className="form-check-label" check htmlFor={noonId}>Noon</Label>
                   </FormGroup>
                   <FormGroup check inline>
-                    <Input className="form-check-input" type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3" />
-                    <Label className="form-check-label" check htmlFor="inline-checkbox3">Night</Label>
+                    <Input className="form-check-input" type="checkbox" id={nightId} name="Night" value="Night" onChange={this.checkboxChange.bind(this, idx)} />
+                    <Label className="form-check-label" check htmlFor={nightId}>Night</Label>
                   </FormGroup>
                 </Col>
                 <Col md="3">
                   <FormGroup check inline>
-                    <Input className="form-check-input" type="radio" id="inline-radio1" name="inline-radios" value="option1" />
-                    <Label className="form-check-label" check htmlFor="inline-radio1">Before meal</Label>
+                    <Input className="form-check-input" type="radio" id={beforeId} name={beforeId} value="Before meal" onChange={this.radioChange.bind(this, idx)} />
+                    <Label className="form-check-label" check htmlFor={beforeId}>Before meal</Label>
                   </FormGroup>
                   <FormGroup check inline>
-                    <Input className="form-check-input" type="radio" id="inline-radio2" name="inline-radios" value="option2" />
-                    <Label className="form-check-label" check htmlFor="inline-radio2">After meal</Label>
+                    <Input className="form-check-input" type="radio" id={afterId} name={beforeId} value="After meal" onChange={this.radioChange.bind(this, idx)} />
+                    <Label className="form-check-label" check htmlFor={afterId}>After meal</Label>
                   </FormGroup>
                   <FormGroup check inline>
-                    <Input className="form-check-input" type="radio" id="inline-radio3" name="inline-radios" value="option3" />
-                    <Label className="form-check-label" check htmlFor="inline-radio3">Indifferent</Label>
+                    <Input className="form-check-input" type="radio" id={indifferentId} name={beforeId} value="Indifferent" onChange={this.radioChange.bind(this, idx)} />
+                    <Label className="form-check-label" check htmlFor={indifferentId}>Indifferent</Label>
                   </FormGroup>
                 </Col>
               </FormGroup>
@@ -263,7 +379,7 @@ class Prescription extends Component {
       </form>
               </CardBody>
               <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
+                <Button type="submit" size="sm" color="primary" onClick={this.submit}><i className="fa fa-dot-circle-o"></i> Submit</Button>
                 <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
               </CardFooter>
             </Card>

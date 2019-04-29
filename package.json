@@ -49,6 +49,7 @@
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.8.5",
     "react-drag-drawer": "^3.3.0",
+    "react-file-base64": "^1.0.3",
     "react-icons": "^3.5.0",
     "react-loading-screen": "0.0.17",
     "react-notifications": "^1.4.3",

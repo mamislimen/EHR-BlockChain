@@ -25,6 +25,9 @@ import {
   Row,
 } from 'reactstrap';
 import Autocomplete from 'react-autocomplete';
+import './autocomplete.css';
+import swal from 'sweetalert';
+
 
 
 class ChronicDisease extends Component {
@@ -33,22 +36,26 @@ class ChronicDisease extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.toggleFade = this.toggleFade.bind(this);
+    this.curr = new Date();
+    //this.curr.setDate(this.curr.getDate() + 3);
+    this.date = this.curr.toISOString().substr(0,10);
     this.state = {
       collapse: true,
       fadeIn: true,
       timeout: 300,
       value: "",
+      notes:"",
+      date:this.date,
       autocompleteData: []
     };
-    this.curr = new Date();
-    //this.curr.setDate(this.curr.getDate() + 3);
-    this.date = this.curr.toISOString().substr(0,10);
     this.onChange = this.onChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.getItemValue = this.getItemValue.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.renderMenu = this.renderMenu.bind(this);
     this.retrieveDataAsynchronously = this.retrieveDataAsynchronously.bind(this);
+    this.handleChange=this.handleChange.bind(this);
+
   }
   retrieveDataAsynchronously(searchText){
     let _this = this;
@@ -158,6 +165,52 @@ class ChronicDisease extends Component {
   toggleFade() {
     this.setState((prevState) => { return { fadeIn: !prevState }});
   }
+  handleChange(e){
+    this.setState({
+      [e.target.name]:e.target.value
+    })
+  }
+  submit = (e) => {
+    swal({
+      title: "Are you sure you want to add this condition ?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+
+    }).then(willAdd => {
+      if (willAdd) {
+    let id = Math.floor(1000 + Math.random() * 9000);
+    fetch('http://localhost:3000/api/model.PractitionerAddChronicDisease', {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    "$class": "model.PractitionerAddChronicDisease",
+  "chronicDisease": {
+    "$class": "model.ChronicDiseases",
+    "chronicDiseasesId": id+"",
+    "name": this.state.value,
+    "date": this.state.date+"",
+    "notes": this.state.notes
+  },
+  "patient": "resource:model.Patient#1111",
+  "practitioner": "resource:model.Practitioner#2222"
+  })
+}).then(function(response) {
+  if(response.status==200){
+  swal("Added!", "Condition added succefully to record", "success");
+}else{
+  swal("Error!", "An error accured", "error");
+}
+  console.log (response.text())
+}, function(error) {
+  console.log (error.message) //=> String
+})
+}
+});
+  }
 
   render() {
     return (
@@ -188,16 +241,16 @@ class ChronicDisease extends Component {
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="date-input">Date of Consultataion</Label>
+                      <Label htmlFor="date">Date of Consultataion</Label>
                     </Col>
                     <Col xs="12" md="9">
 
-                      <Input type="date" id="date-input" name="date-input" placeholder="date" defaultValue={this.date} />
+                      <Input type="date" id="date" name="date" placeholder="date" onChange={this.handleChange} defaultValue={this.date} />
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="textarea-input">Chronic disease</Label>
+                      <Label htmlFor="disease">Chronic disease</Label>
                     </Col>
                     <Col xs="12" md="9">
                       <div>
@@ -215,18 +268,17 @@ class ChronicDisease extends Component {
                   </FormGroup>
                   <FormGroup row>
                     <Col md="3">
-                      <Label htmlFor="textarea-input">Additional Notes</Label>
+                      <Label htmlFor="notes">Additional Notes</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="textarea" name="textarea-input" id="textarea-input" rows="9"
-                             placeholder="Content..." />
+                      <Input type="textarea" name="notes" id="notes" rows="9" onChange={this.handleChange} placeholder="Content..." />
                     </Col>
                   </FormGroup>
 
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
+                <Button type="submit" size="sm" color="primary" onClick={this.submit}><i className="fa fa-dot-circle-o"></i> Submit</Button>
                 <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
               </CardFooter>
             </Card>
