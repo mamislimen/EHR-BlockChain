@@ -51,6 +51,7 @@ export default class physicalactivity extends Component {
     this._refreshPhysical();
     
   }
+  componentDidUpdate(){this._refreshPhysical();}
 
   
   
@@ -98,11 +99,11 @@ export default class physicalactivity extends Component {
 
 
     
-      //NotificationManager.success('Added with success', this.state.newNutruitionData.name);
-      this._refreshPhysical()
+      NotificationManager.success('Added with success', this.state.newPhysicalModel.name);
+      
     }
    
-      
+    this._refreshPhysical()
    
     }
 

@@ -85,8 +85,7 @@ getNutritionDoctors(){
 
 }
 testObesite(){
-  console.log(this.state.items.height)
-  console.log(this.state.items.weight)
+ 
   this._isMounted = true;
   this.setState({
     waiting : !this.state.waiting
@@ -98,7 +97,7 @@ testObesite(){
   fetch('http://localhost:4000/Patient/obesite/', {
     method: 'POST',
     headers :{
-      "access-control-allow-origin": "localhost",
+      "Content-Type": "application/json",
       "access-control-allow-credentials": "false"
   },
 
@@ -112,6 +111,7 @@ testObesite(){
 
 
    }) .then(res => res.json()).then(json => {
+     console.log(json)
      if(json.docteur == true){
       this.setState({
         sick:json,
@@ -228,7 +228,7 @@ cancel(){
                   
                   {/* <small className="text-muted">Gynecologist</small> */}
                   <div className="staff-id"><span className="titleInfo">CIN :</span> <span className="titleInfoText">{this.state.items.cin}</span></div>
-                  <div className="staff-id"><span className="titleInfo">CNSS/CNAM : </span><span className="titleInfoText">00000000</span></div>
+                  <div className="staff-id"><span className="titleInfo">CNSS/CNAM : </span><span className="titleInfoText">{this.state.items.cin}</span></div>
                   <div className="staff-id"><span className="titleInfo">Blood Type:</span> <span className="titleInfoText">{this.state.items.bloodType}</span></div>
                   <div className="staff-id"><span className="titleInfo">Height: </span><span className="titleInfoText">{this.state.items.height}M</span></div>
                   <div className="staff-id"><span className="titleInfo">Weight:</span><span className="titleInfoText"> {this.state.items.weight}KG</span></div>
