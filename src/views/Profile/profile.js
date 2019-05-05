@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styles from './profile.css';
 import LoadingScreen from 'react-loading-screen';
+
 import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Button , Table} from 'reactstrap';
 export default class profile extends Component {
   _isMounted = false;
@@ -13,8 +14,14 @@ constructor(props){
     sick:'[]',
     chronicDiseasess:[],
     waiting:false,
-    doctors:[]
-, 
+    doctors:[], 
+    drugs:[],
+      DrugsModel:false,
+      editProfile: false,
+      editProfileData:{
+        height:'',
+        weight:''
+      }
  }
 }
 componentWillMount(){
@@ -56,6 +63,16 @@ componentDidMount(){
 }
 
 
+
+
+toggleEditProfileModal() {
+  this.setState({
+    editProfile: ! this.state.editProfile
+  });
+
+  console.log('hello')
+}
+
 getNutritionDoctors(){
   this._isMounted = true;
   fetch('http://localhost:3000/api/model.Practitioner/')
@@ -84,8 +101,43 @@ getNutritionDoctors(){
 
 
 }
+DrugsModel(){
+  this._isMounted = true;
+  this.setState({
+  DrugsModel : !this.state.DrugsModel});
+
+  fetch('http://localhost:3000/api/model.Patient/1')
+  .then(res => res.json())
+  .then(json => {
+    if(json.practitionerDrugs != null){
+      let arr = [];
+      json.practitionerDrugs.forEach(nut => {
+       
+        const num = nut.split('#');
+        //console.log(num[1]);
+        if(num[1]!='null'){
+        fetch('http://localhost:3000/api/model.Drug/'+num[1])
+        .then(res2 => res2.json())
+        .then(json2 => {
+           arr.push(json2)
+           this.setState({
+            drugs:arr});
+          
+        }) } });}
+        console.log("druuuugs : " + this.state.drugs)
+    
+  });
+  
+
+
+}
+
+
+
+
 testObesite(){
- 
+  console.log(this.state.items.height)
+  console.log(this.state.items.weight)
   this._isMounted = true;
   this.setState({
     waiting : !this.state.waiting
@@ -94,10 +146,10 @@ testObesite(){
     waiting : !this.state.waiting
   })
 
-  fetch('http://localhost:4000/Patient/obesite/', {
+  fetch('http://localhost:3005/Patient/obesite/', {
     method: 'POST',
     headers :{
-      "Content-Type": "application/json",
+      "access-control-allow-origin": "localhost",
       "access-control-allow-credentials": "false"
   },
 
@@ -111,7 +163,6 @@ testObesite(){
 
 
    }) .then(res => res.json()).then(json => {
-     console.log(json)
      if(json.docteur == true){
       this.setState({
         sick:json,
@@ -157,6 +208,16 @@ cancel(){
 
     })
 
+    let drugs = this.state.drugs.map((p,index)=>{
+      return(
+        
+      <tr><td>{p.name}</td>
+      <td>{p.manufacturer}</td>
+      <td>{p.price}</td>
+      </tr>)
+
+    })
+
     //nsole.log("helloooooo "+this.state.sick.Conseils)
     var {isLoaded , items }= this.state;
     if(!isLoaded){
@@ -165,22 +226,34 @@ cancel(){
     else{
     return (
       <div style={styles}>
-   
-       <LoadingScreen
+     <LoadingScreen
       
-    loading={this.state.waiting}
-    bgColor='#f1f1f1'
-    spinnerColor='#9ee5f8'
-    textColor='#676767'
-    logoSrc={require("../../assets/img/brand//myehr2.svg")}
-    text='Waiting for you result'
-  > 
-  </LoadingScreen>
+      loading={this.state.waiting}
+      bgColor='#f1f1f1'
+      spinnerColor='#9ee5f8'
+      textColor='#676767'
+      logoSrc={require("../../assets/img/brand//myehr2.svg")}
+      text='Waiting for you result'
+    > 
+    </LoadingScreen>
+
+
+  <Modal isOpen={this.state.editProfile} toggle={this.toggleEditProfileModal.bind(this)}>
+        <ModalHeader toggle={this.toggleEditProfileModal.bind(this)}>Edit Profile</ModalHeader>
+        <ModalBody>
+        hello
+        </ModalBody>
+  </Modal>
+      
+
+
+
        <Modal isOpen={this.state.testObesite} toggle={this.testObesite.bind(this)}>
         <ModalBody>
           <p className="font-weight-bold" style = {{
-    justifyContent: 'center',
-    alignItems: 'center'}}>Resut Test</p>
+               justifyContent: 'center',
+              alignItems: 'center'}}>Resut Test
+          </p>
        <div> <p className="text-justify">{this.state.sick.Conseils}</p ></div>
        <br/>
        <Table responsive className="table table-dark">
@@ -201,15 +274,80 @@ cancel(){
 
         </ModalBody>
       </Modal>
-        <div className="content">
-  <div className="row">
-    <div className="col-sm-7 col-6">
-      <h4 className="page-title">My Profile</h4>
+
+
       
-    </div>
+      <Modal isOpen={this.state.DrugsModel} toggle={this.DrugsModel.bind(this)}>
+        <ModalBody>
+          <p className="font-weight-bold" style = {{
+               justifyContent: 'center',
+              alignItems: 'center'}}>Drugs
+          </p>
+       <Table responsive className="table table-dark">
+            <thead>
+            <tr>
+              
+              <th>Name</th>
+              <th>Manufacturer</th>
+              <th>Price</th>
+              
+            </tr>
+            </thead>
+            <tbody>
+            
+            {drugs}
+          
+            </tbody>
+          </Table>
+       
+
+        </ModalBody>
+      </Modal>
+
+      <Modal isOpen={this.state.MRIModel} toggle={this.DrugsModel.bind(this)}>
+        <ModalBody>
+          <p className="font-weight-bold" style = {{
+               justifyContent: 'center',
+              alignItems: 'center'}}>Drugs
+          </p>
+       <Table responsive className="table table-dark">
+            <thead>
+            <tr>
+              
+              <th>Name</th>
+              <th>Manufacturer</th>
+              <th>Price</th>
+              
+            </tr>
+            </thead>
+            <tbody>
+            
+            {drugs}
+          
+            </tbody>
+          </Table>
+       
+
+        </ModalBody>
+      </Modal>
+
+
+
+
+      
+
+        <div className="content">
+           <div  className="flex">
+            <div className="col-sm-2 col-1">
+                <h4 className="page-title">My Profile</h4>
+           </div>
+          <div>
+            <button className="btn btn-warning" onClick={this.toggleEditProfileModal.bind(this)}>Edit</button>
+      
+          </div>
 
     
-  </div>
+         </div>
   <div className="card-box profile-header">
     <div className="row">
       <div className="col-md-12">
@@ -228,7 +366,7 @@ cancel(){
                   
                   {/* <small className="text-muted">Gynecologist</small> */}
                   <div className="staff-id"><span className="titleInfo">CIN :</span> <span className="titleInfoText">{this.state.items.cin}</span></div>
-                  <div className="staff-id"><span className="titleInfo">CNSS/CNAM : </span><span className="titleInfoText">{this.state.items.cin}</span></div>
+                  <div className="staff-id"><span className="titleInfo">CNSS/CNAM : </span><span className="titleInfoText">00000000</span></div>
                   <div className="staff-id"><span className="titleInfo">Blood Type:</span> <span className="titleInfoText">{this.state.items.bloodType}</span></div>
                   <div className="staff-id"><span className="titleInfo">Height: </span><span className="titleInfoText">{this.state.items.height}M</span></div>
                   <div className="staff-id"><span className="titleInfo">Weight:</span><span className="titleInfoText"> {this.state.items.weight}KG</span></div>
@@ -274,29 +412,13 @@ cancel(){
   </div>
   <div className="profile-tabs">
     <ul className="nav nav-tabs nav-tabs-bottom">
-      <li className="nav-item"><a className="nav-link active" href="#about-cont" data-toggle="tab">Drugs</a></li>
-      <li className="nav-item"><a className="nav-link" href="#bottom-tab2" data-toggle="tab">MRI</a></li>
-      <li className="nav-item"><a className="nav-link" href="#bottom-tab3" data-toggle="tab">Lab Tet</a></li>
-      <li className="nav-item"><a className="nav-link" href="#bottom-tab3" data-toggle="tab">Prescription</a></li>
-      <li className="nav-item"><a className="nav-link" href="#bottom-tab3" data-toggle="tab">Allergies</a></li>
+      <li className="nav-item"><a className="nav-link" onClick={this.DrugsModel.bind(this)} data-toggle="tab">Drugs</a></li>
+      <li className="nav-item"><a className="nav-link" onClick={this.toggleEditProfileModal.bind(this)} data-toggle="tab">MRI</a></li>
+      <li className="nav-item"><a className="nav-link" onClick={this.toggleEditProfileModal.bind(this)} data-toggle="tab">Lab Tet</a></li>
+      <li className="nav-item"><a className="nav-link" onClick={this.toggleEditProfileModal.bind(this)} data-toggle="tab">Prescription</a></li>
+      <li className="nav-item"><a className="nav-link" onClick={this.toggleEditProfileModal.bind(this)} data-toggle="tab">Allergies</a></li>
     </ul>
-    <div className="tab-content">
-      <div className="tab-pane show active" id="about-cont">
-        <div className="row">
-          <div className="col-md-12">
-          <div className="card-box">
-           
-           </div>
-          </div>
-        </div>
-      </div>
-      <div className="tab-pane" id="bottom-tab2">
-        Tab content 2
-      </div>
-      <div className="tab-pane" id="bottom-tab3">
-        Tab content 3
-      </div>
-    </div>
+   
   </div>
 </div>
 
@@ -304,3 +426,4 @@ cancel(){
     )
   }}
 }
+
