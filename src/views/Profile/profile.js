@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styles from './profile.css';
 import LoadingScreen from 'react-loading-screen';
-
+import Moment from 'react-moment';
 import { Input, FormGroup, Label, Modal, ModalHeader, ModalBody, ModalFooter, Button , Table} from 'reactstrap';
 export default class profile extends Component {
   _isMounted = false;
@@ -389,7 +389,9 @@ cancel(){
                   </li>
                   <li>
                     <span className="title">Birthday:</span>
-                    <span className="text">{this.state.items.dateOfBirth}</span>
+                    <span className="text"><Moment format="YYYY/MM/DD">
+                {this.state.items.dateOfBirth}
+            </Moment></span>
                   </li>
                   <li>
                     <span className="title">Address:</span>
