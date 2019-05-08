@@ -5,10 +5,11 @@ import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGr
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import swal from 'sweetalert';
-import { loginUser } from '../../../actions/authentication';
+import { loginCard } from '../../../actions/authentication';
 import img1 from './rf1.png' 
 import img2 from './rf2.png' 
-
+import axios from 'axios';
+ 
 const pStyle = {
   margin: '135px',
   
@@ -16,63 +17,126 @@ const pStyle = {
 
 class LoginCard extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
         idcard: [],
         idc1:"",
         idc2:"",
-
+        c1etat:"Card not authificated",
+        c2etat:"Card not authificated",
+        c1color:"red",
+        c2color:"red",
+        errors: {},
+ 
     }
     this.handleInputChange = this.handleInputChange.bind(this);
-  
-    this.handleSubmit = this.handleSubmit.bind(this);
-}
+   
+    this.getAutoIdCard = this.getAutoIdCard.bind(this);
+ }
 
 handleInputChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
 }
- getIdCard1()
- {
-    fetch('http://localhost:4000/api/auth/card')
-    .then(data => data.json())
-    .then((data) => { this.setState({ idc1: data[0] }) ;
-    console.log(data[0]);
-    if(typeof(data[0]) !== 'undefined')
-    swal("Check Patient", "Patient succefully verified", "success");
-    else
-    swal("Check Practitioner/Pharmacy", "Pass your card", "error");
 
-}); 
- }
- getIdCard2()
- {
-    fetch('http://localhost:4000/api/auth/card')
-    .then(data => data.json())
-    .then((data) => { this.setState({ idc2: data[0] }) ;
-    console.log(data[0]);
-    if(typeof(data[0]) !== 'undefined')
-    swal("Check Practitioner/Pharmacy", "Practitioner/Pharmacy succefully verified", "success");
-    else
-    swal("Check Practitioner/Pharmacy", "Pass your card", "error");
+ 
+getAutoIdCard(){
+ 
+  //this.setState({ idc1: ""}) ;
+  //this.setState({ idc2: ""}) ;
+  console.log("idc1"+this.state.idc1);
+  console.log("idc2"+this.state.idc2);
 
-}); 
- }
-handleSubmit(e) {
-    e.preventDefault();
-    const user = {
-        login: this.state.login,
-        password: this.state.password,
+ if(this.state.idc1 ==="" && this.state.idc2 ==="" )
+ { 
+ axios.get('http://localhost:4000/api/auth/card')
+  .then( (response) =>{
+    
+    
+    console.log(response.data);
+    if(typeof response.data[0] !== "undefined"){
+    this.setState({ idc1: response.data[0]}) ;
+    this.setState({ c1color: "green"}) ;
+    this.setState({ c1etat: "card successfully authenficated"}) ;
+    console.log("idc1 seted"+this.state.idc1);
     }
-    console.log(user);
-    this.props.loginUser(user);
+   })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+ }else  if(this.state.idc1 !=="" && this.state.idc2 ==="" )
+ { 
+ axios.get('http://localhost:4000/api/auth/card')
+  .then( (response)=> {
+     if( response.data[0]!==this.state.idc1 )
+    {
+      if(typeof response.data[0] !== "undefined"){
+        
+      this.setState({ idc2: response.data[0]}) ;
+    
+      this.setState({ c2color: "green"}) ;
+      this.setState({ c2etat: "card successfully authenficated"}) ;
+    }
+
+    }
+   })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+ } else  if(this.state.idc1 !=="" && this.state.idc2 !=="" )
+ { 
+  console.log("correct");
+  clearInterval(this.interval);
+  axios({
+    method: 'post',
+    url: 'http://localhost:4000/api/auth/logincard',
+    data: {
+      idcard1: this.state.idc1,
+      idcard2: this.state.idc2
+    },
+    
+      headers: {
+          'Content-Type': 'application/json',
+              }
+    
+  }).then((response)=>
+  {
+    console.log(response);
+    localStorage.setItem('jwtToken', response.data.token);
+    localStorage.setItem('user', response.data.user);
+      this.props.history.push('/dashboards')
+  }
+  );
+  
+ }
+ else
+ {    console.log("error if");
+ }
 }
 
 componentDidMount() {
-
+  this.getAutoIdCard();
+  this.interval = setInterval(() => {
+    this.getAutoIdCard();
+  }, 500);
 }
+componentWillUnmount() {
+  clearInterval(this.interval);
+}
+
+ 
+
+
 componentWillReceiveProps(nextProps) {
 
   if(nextProps.auth.isAuthenticated) {
@@ -100,9 +164,9 @@ if(nextProps.errors) {
                   <div>
                       <h2>Card Patient</h2>
                       <img src={img2} width="200" height="160"/><br></br>
-                      <Link to="/logincard">
-                        <Button color="danger" className="mt-3" active tabIndex={-1} onClick={this.getIdCard1.bind(this)}>Start</Button>
-                      </Link>
+                      <div style={{backgroundColor:this.state.c1color}}>
+                        <h3>{this.state.c1etat}</h3>
+                      </div>
                     </div>
                   </CardBody>
                 </Card>
@@ -111,10 +175,10 @@ if(nextProps.errors) {
                     <div>
                       <h2>Card Practitioner/Pharmacy</h2>
                       <img src={img1} width="200" height="160"/><br></br>
-                      <Link to="/logincard">
-                        <Button color="danger" className="mt-3" active tabIndex={-1} onClick={this.getIdCard2.bind(this)}>Start</Button>
-                      </Link>
-                    </div>
+                      <div style={{backgroundColor:this.state.c2color}}>
+                        <h3>{this.state.c2etat}</h3>
+                      </div>
+                     </div>
                   </CardBody>
                 </Card>
               </CardGroup>
@@ -125,14 +189,10 @@ if(nextProps.errors) {
     );
   }
 }
-LoginCard.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-}
+
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   errors: state.errors
 })
-export default connect(mapStateToProps, { loginUser })(LoginCard)
+export default connect(mapStateToProps, { loginCard })(LoginCard)

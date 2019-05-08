@@ -72,7 +72,7 @@ getIdCard()
 };
  
   addPractitioner(){
-    fetch('http://192.168.75.137:3000/api/model.Practitioner', {
+    fetch('http://192.168.75.139:3000/api/model.Practitioner', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -93,7 +93,7 @@ getIdCard()
                    "state": this.state.states,
                    "zipCode": this.state.zipCode,
                  "country": this.state.country
-                     },
+                     }, 
                 "phoneNumber": this.state.phone,
                 "speciality": this.state.speciality
                
