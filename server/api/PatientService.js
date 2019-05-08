@@ -70,7 +70,7 @@ router.post('/obesite',function(req,res,next){
         res.send({"Resultat":predicted,"Conseils":conseil,docteur:false}); 
         }  
         if(predicted == 1 ){
-            if(req.body.chronicDiseasess!= null){
+            if(req.body.chronicDiseasess.length > 0){
             req.body.chronicDiseasess.forEach(element => {
                 if(element.name == "coeur"){
                     conseil = "vous être un peu obése consultez un docteur"
