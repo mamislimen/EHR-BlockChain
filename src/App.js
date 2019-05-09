@@ -60,11 +60,11 @@ class App extends Component {
               <Route  path="/register" name="Register Page" render={props => <Register {...props}/>} />
               <Route  path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
               <Route  path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
-              {/* <Route  path="/dashboards" name="Dashboard" render={props => <DefaultLayout {...props}/>} /> */}
-              <Route  path="/dashboards" name="Dashboard" render={props => (localStorage.getItem('jwtToken')
+               <Route  path="/dashboards" name="Dashboard" render={props => <DefaultLayout {...props}/>} />
+             {/*  <Route  path="/dashboards" name="Dashboard" render={props => (localStorage.getItem('jwtToken')
             ? <DefaultLayout {...props} />
             : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-            )} />
+            )} /> */}
               <Route component={Page404} />
 
  

@@ -295,7 +295,7 @@ fetch('http://localhost:3000/api/model.PractitionerAddPrescription', {
             <Label>Patient's name</Label>
           </Col>
           <Col xs="12" md="9">
-            <p className="form-control-static">Username</p>
+            <p className="form-control-static">Firas</p>
           </Col>
         </FormGroup>
         <FormGroup row>
@@ -303,7 +303,7 @@ fetch('http://localhost:3000/api/model.PractitionerAddPrescription', {
             <Label>Practitioner's name</Label>
           </Col>
           <Col xs="12" md="9">
-            <p className="form-control-static">Username</p>
+            <p className="form-control-static">Dr Mohamed Salah</p>
           </Col>
         </FormGroup>
         <FormGroup row>
