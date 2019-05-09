@@ -5,7 +5,7 @@ import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGr
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { loginUser } from '../../../actions/authentication';
-
+import imgrfid from './rfid.png' 
 const pStyle = {
   margin: '135px',
   
@@ -114,11 +114,11 @@ if(nextProps.errors) {
                 <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
                   <CardBody className="text-center">
                     <div>
-                      <h2>Sign up</h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                      <Link to="/register">
-                        <Button color="primary" className="mt-3" active tabIndex={-1}>Register Now!</Button>
+                      <h2>Login Using Card</h2>
+                      <img src={imgrfid} width="200" height="160"/>
+                      <br></br>
+                      <Link to="/logincard">
+                        <Button color="primary" className="mt-3" active tabIndex={-1}>Login</Button>
                       </Link>
                     </div>
                   </CardBody>

@@ -55,7 +55,7 @@ class Menu extends Component {
 													<li><NavLink to="/services">Services</NavLink></li>
 													<li><NavLink to="/news">News</NavLink></li>
 											
-													<li><NavLink to="doctors">Doctors</NavLink></li>
+											
 												</ul>
 											</nav>
 										
@@ -76,3 +76,4 @@ class Menu extends Component {
   }
 }
 export default Menu;
+

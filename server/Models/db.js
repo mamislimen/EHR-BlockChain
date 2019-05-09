@@ -1,2 +1,2 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/testprediction');
+//mongoose.connect('mongodb://localhost/testprediction');

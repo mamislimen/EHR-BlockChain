@@ -44,17 +44,8 @@ export default class Footer extends Component {
 				
 					<div className="col-lg-5 footer_col">
 						<div className="footer_contact">
-							<div className="footer_contact_title">Quick Contact</div>
-							<div className="footer_contact_form_container">
-								<form action="#" className="footer_contact_form" id="footer_contact_form">
-									<div className="d-flex flex-xl-row flex-column align-items-center justify-content-between">
-										<input type="text" className="footer_contact_input" placeholder="Name" required="required"/>
-										<input type="email" className="footer_contact_input" placeholder="E-mail" required="required"/>
-									</div>
-									<textarea className="footer_contact_input footer_contact_textarea" placeholder="Message" required="required"></textarea>
-									<button className="footer_contact_button">send message</button>
-								</form>
-							</div>
+						
+						
 						</div>
 					</div>
 
@@ -120,4 +111,5 @@ export default class Footer extends Component {
     );
   }
 }
+
 

@@ -1,20 +1,20 @@
 
-const express = require('express'); 
+const express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 const cors = require('cors');
-const twilio = require('twilio'); 
+const twilio = require('twilio');
 const pino = require('express-pino-logger')();
-const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser');
 var db = require('./Models/db');
 var AuthController = require('./api/AuthController');
 var patientRouter= require('./api/PatientService');
 
-//twilio requirements -- Texting API 
+//twilio requirements -- Texting API
 const accountSid = 'ACc37183f289c7ca9f2b2a6362f70c180e';
-const authToken = '7dc390692e2d7d023c3ecd8bbbb46ca2'; 
+const authToken = '7dc390692e2d7d023c3ecd8bbbb46ca2';
 const client = new twilio(accountSid, authToken);
-  
+
 const app = express(); //alias
 
 app.use(cors()); //Blocks browser from restricting any data
@@ -23,12 +23,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/api/auth', AuthController);
 app.use('/Patient',patientRouter);
-//Welcome Page for the Server 
+//Welcome Page for the Server
 app.get('/', (req, res) => {
     res.send('Welcome to the Express Server')
-})
+});
 
-//Twilio 
+//Twilio
 app.get('/send-text', (req, res) => {
     //Welcome Message
     res.send('Hello to the Twilio Server')

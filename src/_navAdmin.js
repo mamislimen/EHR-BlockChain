@@ -2,57 +2,35 @@ export default {
   items: [
     {
       name: 'Dashboard',
-      url: '/dashboards',
-      icon: 'icon-speedometer',
+      url: '/dashboards/admin',
+      icon: 'fa fa-tachometer',
       // badge: {
       //   variant: 'info',
       //   text: 'NEW',
       // },
     },
     {
-         name: 'Consultation',
-         url: '/dashboards/practitioner/consultation',
-         icon: 'fa fa-stethoscope',
+         name: 'Patient',
+         url: '/dashboards/admin/patient',
+         icon: 'fa fa-user',
 
     },
     {
-         name: 'Prescription',
-         url: '/dashboards/practitioner/prescription',
-         icon: 'fa fa-file-text-o',
+         name: 'Practitioner',
+         url: '/dashboards/admin/practitioner',
+         icon: 'fa fa-user-md',
 
     },
     {
-          name: 'Allergies',
-          url: '/dashboards/practitioner/allergies',
-          icon: 'fa fa-exclamation-triangle',
+      name: 'Pharmacy',
+      url: '/dashboards/admin/pharmacy',
+      icon: 'fa fa-user',
 
-    },
+ },
     {
-          name: 'MRI results',
-          url: '/dashboards/practitioner/mri',
-          icon: 'fa fa-search',
-
-    },
-    {
-          name: 'Lab Test Results',
-          url: '/dashboards/practitioner/labresults',
-          icon: 'fa fa-flask',
-
-    },
-    {
-      name: 'Chronic Disease',
-      url: '/dashboards/practitioner/chronicdisease',
-      icon: 'fa fa-wheelchair',
-
-    },
-    {
-      name: 'Drugs',
+      name: 'Pharmacy Actions',
       url: '/dashboards/pharmacy/addDrugs',
       icon: 'fa fa-medkit',
-      // badge: {
-      //   variant: 'info',
-      //   text: 'NEW',
-      // },
     },
 
     // {

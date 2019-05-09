@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch,BrowserRouter as Router } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Container } from 'reactstrap'; 
 import Record from '../../views/Record/Record';
 import {
   AppAside,
@@ -16,9 +16,13 @@ import {
 } from '@coreui/react';
 // sidebar nav config
 import navigation from '../../_navPractitioner';
+//import navigation from '../../_nav';
+import navigationPharma from '../../_navPharma';
+import navigationPractitioner from '../../_navPractitioner';
+import navigationAdmin from '../../_navAdmin';
 // routes config
 import routes from '../../routes';
-
+import { logoutUser } from '../../actions/authentication';
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
@@ -26,14 +30,36 @@ const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
 
 class DefaultLayout extends Component {
-  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      navData: navigation,
+ 
+    };
+ 
+  }
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   signOut(e) {
-    e.preventDefault()
+   // e.preventDefault()
+ //   { logoutUser } 
+ console.log(this.state.navData)
+ localStorage.clear();
     this.props.history.push('/login')
   }
-
+  componentDidMount()
+  {
+    var usr=localStorage.getItem('user');
+    if(usr==='practitioner')
+    this.setState({ navData:navigationPractitioner})
+    else  if(usr==='pharmacy')
+    this.setState({ navData:navigationPharma})
+    else  if(usr==='patient')
+    this.setState({ navData:navigation})
+    else
+    this.setState({ navData:navigationAdmin})
+  }
   render() {
     return (
       <div className="app">
@@ -48,7 +74,8 @@ class DefaultLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} />
+            {/* <AppSidebarNav navConfig={navigation} {...this.props} /> */}
+            <AppSidebarNav navConfig={this.state.navData} {...this.props} />
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />

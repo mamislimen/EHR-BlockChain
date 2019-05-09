@@ -53,10 +53,7 @@ export default class nutrition extends Component {
     
   }
 
-  componentWillUpdate(){
-    this._refreshNutrition();
-  }
-
+  
   
 
   
@@ -80,7 +77,7 @@ export default class nutrition extends Component {
         alert('callback');
       });
     }
-    if(this.state.newNutruitionData.name != '' && this.state.newNutruitionData.type != '' && this.state.newNutruitionData.quantity != ''){
+    if(this.state.newNutruitionData.name != '' && this.state.newNutruitionData.type != '' && this.state.newNutruitionData.quantity != '' && this.state.newNutruitionData.quantity > 0){
     fetch('http://localhost:3000/api/model.PatientAddNutrition', {
      method: 'POST',
       headers: {
