@@ -19,6 +19,7 @@ export const loginUser = (user) => dispatch => {
             .then(res => {
                 const { token } = res.data;
                 localStorage.setItem('jwtToken', token);
+                localStorage.setItem('user' ,'patient');
                 setAuthToken(token);
                 const decoded = jwt_decode(token);
                 dispatch(setCurrentUser(decoded));
@@ -42,4 +43,23 @@ export const logoutUser = (history) => dispatch => {
     setAuthToken(false);
     dispatch(setCurrentUser({}));
     history.push('/login');
+}
+
+export const loginCard = (user) => dispatch => {
+    axios.post('/api/auth/logincard', user)
+            .then(res => {
+                const { token } = res.data;
+                localStorage.setItem('jwtToken', token);
+                
+                setAuthToken(token);
+                const decoded = jwt_decode(token);
+                dispatch(setCurrentUser(decoded));
+                console.log(res.data);
+            })
+            .catch(err => {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err.response.data
+                });
+            });
 }
