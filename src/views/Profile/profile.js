@@ -18,10 +18,7 @@ constructor(props){
     drugs:[],
       DrugsModel:false,
       editProfile: false,
-      editProfileData:{
-        height:'',
-        weight:''
-      }
+      
  }
 }
 componentWillMount(){
@@ -65,13 +62,7 @@ componentDidMount(){
 
 
 
-toggleEditProfileModal() {
-  this.setState({
-    editProfile: ! this.state.editProfile
-  });
 
-  console.log('hello')
-}
 
 getNutritionDoctors(){
   this._isMounted = true;
@@ -238,12 +229,6 @@ cancel(){
     </LoadingScreen>
 
 
-  <Modal isOpen={this.state.editProfile} toggle={this.toggleEditProfileModal.bind(this)}>
-        <ModalHeader toggle={this.toggleEditProfileModal.bind(this)}>Edit Profile</ModalHeader>
-        <ModalBody>
-        hello
-        </ModalBody>
-  </Modal>
       
 
 
@@ -341,10 +326,7 @@ cancel(){
             <div className="col-sm-2 col-1">
                 <h4 className="page-title">My Profile</h4>
            </div>
-          <div>
-            <button className="btn btn-warning" onClick={this.toggleEditProfileModal.bind(this)}>Edit</button>
-      
-          </div>
+          
 
     
          </div>
@@ -415,10 +397,6 @@ cancel(){
   <div className="profile-tabs">
     <ul className="nav nav-tabs nav-tabs-bottom">
       <li className="nav-item"><a className="nav-link" onClick={this.DrugsModel.bind(this)} data-toggle="tab">Drugs</a></li>
-      <li className="nav-item"><a className="nav-link" onClick={this.toggleEditProfileModal.bind(this)} data-toggle="tab">MRI</a></li>
-      <li className="nav-item"><a className="nav-link" onClick={this.toggleEditProfileModal.bind(this)} data-toggle="tab">Lab Tet</a></li>
-      <li className="nav-item"><a className="nav-link" onClick={this.toggleEditProfileModal.bind(this)} data-toggle="tab">Prescription</a></li>
-      <li className="nav-item"><a className="nav-link" onClick={this.toggleEditProfileModal.bind(this)} data-toggle="tab">Allergies</a></li>
     </ul>
    
   </div>
