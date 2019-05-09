@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
- 
+
 import { setCurrentUser, logoutUser } from './actions/authentication';
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -47,7 +47,7 @@ class App extends Component {
       <HashRouter>
           <React.Suspense fallback={loading()}>
             <Switch>
-            
+
               <Route  exact path="/" name="Home" render={props => <Home {...props}/>} />
               <Route  path="/home" name="home" render={props => <Home {...props}/>} />
               <Route  path="/about" name="about" render={props => <About {...props}/>} />
@@ -59,14 +59,14 @@ class App extends Component {
               <Route  path="/register" name="Register Page" render={props => <Register {...props}/>} />
               <Route  path="/404" name="Page 404" render={props => <Page404 {...props}/>} />
               <Route  path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
-              {/* <Route  path="/dashboards" name="Dashboard" render={props => <DefaultLayout {...props}/>} /> */}
-              <Route  path="/dashboards" name="Dashboard" render={props => (localStorage.getItem('jwtToken')
+               <Route  path="/dashboards" name="Dashboard" render={props => <DefaultLayout {...props}/>} />
+              {/*} <Route  path="/dashboards" name="Dashboard" render={props => (localStorage.getItem('jwtToken')
             ? <DefaultLayout {...props} />
             : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-            )} />
+            )} />*/}
               <Route component={Page404} />
 
- 
+
             </Switch>
           </React.Suspense>
       </HashRouter>

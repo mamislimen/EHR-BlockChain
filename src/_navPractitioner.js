@@ -13,25 +13,25 @@ export default {
          name: 'Consultation',
          url: '/dashboards/practitioner/consultation',
          icon: 'fa fa-stethoscope',
-       
+
     },
     {
          name: 'Prescription',
          url: '/dashboards/practitioner/prescription',
          icon: 'fa fa-file-text-o',
-       
+
     },
     {
           name: 'Allergies',
           url: '/dashboards/practitioner/allergies',
           icon: 'fa fa-exclamation-triangle',
-        
+
     },
     {
           name: 'MRI results',
           url: '/dashboards/practitioner/mri',
           icon: 'fa fa-search',
-        
+
     },
     {
           name: 'Lab Test Results',
@@ -45,6 +45,16 @@ export default {
       icon: 'fa fa-wheelchair',
 
     },
+    {
+      name: 'Drugs',
+      url: '/dashboards/pharmacy/addDrugs',
+      icon: 'fa fa-medkit',
+      // badge: {
+      //   variant: 'info',
+      //   text: 'NEW',
+      // },
+    },
+
     // {
     //   title: true,
     //   name: 'Theme',
